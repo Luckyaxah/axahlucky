@@ -1,0 +1,24 @@
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% extends "base.html" %}
+
+{% block content%}
+<h3>{{keyword.content}}</h3>
+
+{#
+    <!-- {% for i in okm_list %}
+    <div>
+        <h4>{{i.opinion.title}}</h4>
+    </div>
+    <div>
+        {{i.opinion.id}},{{i.opinion.content}}
+    </div>
+    {% endfor %} -->
+#}
+
+
+    {% include "main/_opinions.html" %}
+
+{{render_pagination(pagination)}}
+    
+{% endblock %}

@@ -1,0 +1,19 @@
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% extends "base.html" %}
+
+{% block content%}
+    <h3>Keywords</h3>
+    <div>
+        <a href="{{url_for('.new_keyword')}}">New Keyword</a>
+    </div>
+    <div>
+        {% for i in keywords %}
+        <div>
+            <a href="{{url_for('.show_keyword',keyword_id=i.id)}}">{{i.content}}</a>, {{i.okm|length}}
+        </div>
+        <br>
+        {% endfor %}
+    </div> 
+    {{render_pagination(pagination)}}
+{% endblock %}

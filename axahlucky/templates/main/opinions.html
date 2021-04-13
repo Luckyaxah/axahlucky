@@ -1,0 +1,29 @@
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% extends "base.html" %}
+
+{% block content%}
+    <h3>Opinions</h3>
+    <a href="{{url_for('.new_opinion')}}">New Opinion</a>
+    {#
+        <!-- {% for i in opinions %}
+        <div>
+        <div>
+            <h4><a href="{{url_for('.show_opinion', opinion_id = i.id)}}">{{i.title}}</a></h4>
+            <div>Content:
+                {{i.content}}
+            </div>
+        </div>Keyword:
+            <small>
+            {% for j in i.okm %}
+                {{j.keyword.content}}
+            {% endfor %}
+            </small>
+        </div>
+        <br>
+        {% endfor %} -->
+    #}
+
+    {% include "main/_opinions.html" %}
+    {{render_pagination(pagination)}}
+{% endblock %}
