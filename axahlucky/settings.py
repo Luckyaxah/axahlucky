@@ -18,6 +18,8 @@ else:
     prefix = 'sqlite:////'
 
 class BaseConfig:
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     AXAHLUCKY_OPINION_PER_PAGE = 10
     AXAHLUCKY_KEYWORD_PER_PAGE = 10
