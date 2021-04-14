@@ -6,17 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Hello{% endblock title %}</title>
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'perfect_blue')) }}"
-              type="text/css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/perfect_blue.min.css' )}}"
+              type="text/css">
   {% endblock head %}
 </head>
 <body>
 
 {% block navbar %}
-{# {{nav.top.render()}} #}
-{% include "navbar.html" %}
+{% include "_navbar.html" %}
 
 {% endblock navbar %}
 
@@ -24,7 +23,11 @@
   {% block content %}
   <h1>Hello, Hi</h1>
   {% endblock content %}
+    
+  {% block pagination%}
+  {% endblock pagination %}
 </div>
+
 <div class="container">
   {% block footer%}
   {% endblock footer %}
@@ -33,7 +36,6 @@
 
 {% block scripts %}
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock scripts %}
