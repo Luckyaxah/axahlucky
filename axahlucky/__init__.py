@@ -15,7 +15,6 @@ def create_app(config_name=None):
         config_name = os.getenv('FLASK_CONFIG', 'development')
 
     app = Flask('axahlucky')
-    
     app.config.from_object(config[config_name])
 
     register_extensions(app)

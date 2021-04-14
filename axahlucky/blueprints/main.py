@@ -96,7 +96,7 @@ def new_opinion():
         return redirect(url_for('.show_opinion', opinion_id=opinion.id))
     return render_template('main/new_opinion.html', form=form)
 
-@main_bp.route('/opinions/<int:opinion_id>', methods=['POST'])
+@main_bp.route('/opinions/<int:opinion_id>/delete', methods=['POST'])
 def delete_opinion(opinion_id):
     opinion = Opinion.query.get(opinion_id)
     if opinion:
@@ -117,6 +117,14 @@ def new_keyword():
 
         return redirect(url_for('.keywords'))
     return render_template('main/new_keyword.html', form=form)
+
+@main_bp.route('/keywords/<int:keyword_id>/delete', methods=['POST'])
+def delete_keyword(keyword_id):
+    keyword = Keyword.query.get(keyword_id)
+    if keyword:
+        db.session.delete(keyword)
+        db.session.commit()
+    return redirect(url_for('.keywords'))
 
 
 
