@@ -3,7 +3,7 @@ from axahlucky.extensions import db
 
 class Opinion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(100))
     content = db.Column(db.Text)
     
     okm = db.relationship('OpinionKeywordMapping', back_populates='opinion', cascade='all')

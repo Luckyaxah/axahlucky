@@ -4,7 +4,7 @@ import click
 from flask import Flask
 
 from axahlucky.settings import config
-from axahlucky.extensions import db, bootstrap, nav
+from axahlucky.extensions import db, bootstrap, nav, debug
 from axahlucky.blueprints.main import main_bp
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
 
@@ -31,6 +31,7 @@ def register_extensions(app):
     db.init_app(app)
     bootstrap.init_app(app)
     nav.init_app(app)
+    debug.init_app(app)
 
 def register_blueprints(app):
     app.register_blueprint(main_bp)
