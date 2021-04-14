@@ -25,5 +25,9 @@
     #}
 
     {% include "main/_opinions.html" %}
-    {{render_pagination(pagination)}}
 {% endblock %}
+
+{% block footer%}
+    {{super()}}
+    {{render_pagination(pagination)}}
+{% endblock footer %}
