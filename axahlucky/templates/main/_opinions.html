@@ -1,16 +1,18 @@
 {% for i in opinions %}
+
         <div>
         <div>
             <h4><a href="{{url_for('.show_opinion', opinion_id = i.id)}}">{{i.title|truncate}}</a></h4>
             <div>Content:
-                {{i.title|truncate}}
+                {{i.content|truncate}}
             </div>
         </div>Keyword:
             <small>
             {% for j in i.okm %}
                 {{j.keyword.content}}
+                
             {% endfor %}
             </small>
         </div>
-        <br>
+        <hr>
 {% endfor %}

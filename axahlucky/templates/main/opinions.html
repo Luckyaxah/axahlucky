@@ -5,8 +5,16 @@
 
 {% block content%}
     <h3>Opinions</h3>
-    <a href="{{url_for('.new_opinion')}}">New Opinion</a>
-    {% include "main/_opinions.html" %}
+    <div class="row">
+        <div class="col-md-10">
+            {% include "main/_opinions.html" %}
+        </div>
+        <div class="col-md-2">
+            <a href="{{url_for('.new_opinion')}}">New Opinion</a>
+        </div>
+    </div>
+    
+   
 {% endblock %}
 
 {% block pagination%}
