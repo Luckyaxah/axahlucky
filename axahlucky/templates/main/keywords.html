@@ -4,17 +4,21 @@
 
 {% block content%}
     <h3>Keywords</h3>
-    <div>
-        <a href="{{url_for('.new_keyword')}}">New Keyword</a>
-    </div>
-    <div>
-        {% for i in keywords %}
-        <div>
-            <a href="{{url_for('.show_keyword',keyword_id=i.id)}}">{{i.content}}</a>, {{i.okm|length}}
+    <div class="row">
+        <div class="col-md-10">
+            {% for i in keywords %}
+            <div>
+                <a href="{{url_for('.show_keyword',keyword_id=i.id)}}">{{i.content}}</a>, {{i.okm|length}}
+            </div>
+            <br>
+            {% endfor %}
+        </div> 
+        <div class="col-md-2">
+            <a href="{{url_for('.new_keyword')}}">New Keyword</a>
         </div>
-        <br>
-        {% endfor %}
-    </div> 
+    </div>
+
+    
 {% endblock %}
 
 {% block pagination%}
