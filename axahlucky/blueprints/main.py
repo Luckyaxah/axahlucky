@@ -40,7 +40,7 @@ def show_keyword(keyword_id):
     # opinions = [item.opinion for item in pagination.items]
 
     # way2: use join
-    pagination = Opinion.query.join(OpinionKeywordMapping, OpinionKeywordMapping.opinion_id == Opinion.id ).filter_by(keyword_id = keyword_id).order_by(Opinion.update_time).paginate(page,per_page)
+    pagination = Opinion.query.join(OpinionKeywordMapping, OpinionKeywordMapping.opinion_id == Opinion.id ).filter_by(keyword_id = keyword_id).order_by(Opinion.update_time.desc()).paginate(page,per_page)
     opinions = pagination.items
     return render_template('main/show_keyword.html', keyword=keyword, opinions = opinions, pagination = pagination)
 
