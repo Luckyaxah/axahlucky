@@ -2,7 +2,9 @@
         <div>
         
             <h4><a href="{{url_for('.show_opinion', opinion_id = i.id)}}">{{i.title|truncate}}</a></h4>
-            
+            <div>
+                {{moment(i.update_time).format('lll')}}
+            </div>
             <div>
                 Keyword:
                 <small>
@@ -12,7 +14,8 @@
                 {% endfor %}
                 </small>
             </div>
-            
+
+
             <div>
                 {{i.content|truncate}}
             </div>

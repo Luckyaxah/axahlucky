@@ -4,7 +4,7 @@ import click
 from flask import Flask
 
 from axahlucky.settings import config
-from axahlucky.extensions import db, bootstrap, nav, debug, migrate, ckeditor
+from axahlucky.extensions import db, bootstrap, nav, debug, migrate, ckeditor, moment
 from axahlucky.blueprints.main import main_bp
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
 
@@ -34,6 +34,7 @@ def register_extensions(app):
     debug.init_app(app)
     ckeditor.init_app(app)
     migrate.init_app(app, db)
+    moment.init_app(app)
 
 
 def register_blueprints(app):

@@ -111,5 +111,3 @@ logs/*
 uploads/*
 !uploads/.gitkeep
 .vscode
-
-migrations/

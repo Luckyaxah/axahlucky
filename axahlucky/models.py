@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from axahlucky.extensions import db
 
 
@@ -5,6 +7,8 @@ class Opinion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     content = db.Column(db.Text)
+    create_time = db.Column(db.DateTime,  default=datetime.utcnow)
+    update_time = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     okm = db.relationship('OpinionKeywordMapping', back_populates='opinion', cascade='all')
 
@@ -22,6 +26,8 @@ class Opinion(db.Model):
 class Keyword(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(50), unique=True)
+    create_time = db.Column(db.DateTime,  default=datetime.utcnow)
+
 
     okm = db.relationship('OpinionKeywordMapping', back_populates='keyword', cascade='all')
 

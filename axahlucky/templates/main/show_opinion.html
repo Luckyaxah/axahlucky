@@ -4,6 +4,9 @@
 {% block content%}
 
 <h3>{{opinion.title}}</h3>
+<div>
+    {{moment(opinion.update_time).format('lll')}}
+</div>
 <div class="row">
     <div class="col-md-10">
         <small>
