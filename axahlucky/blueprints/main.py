@@ -34,8 +34,14 @@ def show_keyword(keyword_id):
     keyword = Keyword.query.get(keyword_id)
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['AXAHLUCKY_KEYWORD_PER_PAGE']
-    pagination = OpinionKeywordMapping.query.filter_by(keyword_id = keyword_id).paginate(page,per_page)
-    opinions = [item.opinion for item in pagination.items]
+    # way1
+    # pagination = OpinionKeywordMapping.query.with_parent(keyword).paginate(page,per_page)
+    # pagination = OpinionKeywordMapping.query.filter_by(keyword_id = keyword_id).paginate(page,per_page)
+    # opinions = [item.opinion for item in pagination.items]
+
+    # way2: use join
+    pagination = Opinion.query.join(OpinionKeywordMapping, OpinionKeywordMapping.opinion_id == Opinion.id ).filter_by(keyword_id = keyword_id).order_by(Opinion.update_time).paginate(page,per_page)
+    opinions = pagination.items
     return render_template('main/show_keyword.html', keyword=keyword, opinions = opinions, pagination = pagination)
 
 @main_bp.route('/opinions/<int:opinion_id>')

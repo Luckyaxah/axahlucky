@@ -10,14 +10,12 @@
                 <small>
                 {% for j in i.okm %}
                     {{j.keyword.content}}
-                    
                 {% endfor %}
                 </small>
             </div>
 
-
             <div>
-                {{i.content|truncate}}
+                {{i.content|striptags|truncate}}
             </div>
         
         <hr>

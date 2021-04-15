@@ -6,7 +6,7 @@ from wtforms import StringField, TextAreaField, SelectMultipleField, SubmitField
 class EditOpinionForm(FlaskForm):
     title = StringField('Title', validators=[])
     keyword = SelectMultipleField('Keyword', validators=[], coerce=int)
-    content = TextAreaField('content', validators=[])
+    content = CKEditorField('content', validators=[])
     submit = SubmitField()
 
 class EditKeywordForm(FlaskForm):
