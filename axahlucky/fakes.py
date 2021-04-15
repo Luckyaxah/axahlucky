@@ -7,6 +7,8 @@ from axahlucky.extensions import db
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
 
 fake = Faker()
+
+
 def fake_keyword(count=5):
 
     for i in range(count):

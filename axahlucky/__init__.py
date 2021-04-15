@@ -44,7 +44,9 @@ def register_blueprints(app):
 def register_commands(app):
 
     @app.cli.command()
-    def forge():
+    @click.option('--keyword', default=10)
+    @click.option('--opinion', default=50)
+    def forge(keyword, opinion):
         """Generate fake data."""
         from axahlucky.fakes import fake_keyword, fake_opinion
 
@@ -52,10 +54,10 @@ def register_commands(app):
         db.create_all()
 
         click.echo('Generating the keywords...')
-        fake_keyword()
+        fake_keyword(keyword)
 
         click.echo('Generating the opinions...')
-        fake_opinion()
+        fake_opinion(opinion)
 
         click.echo('Done.')
 
