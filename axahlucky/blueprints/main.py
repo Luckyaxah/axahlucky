@@ -48,8 +48,8 @@ def show_keyword(keyword_id):
 def show_opinion(opinion_id):
     opinion = Opinion.query.get(opinion_id)
     okm_list = OpinionKeywordMapping.query.filter_by(opinion_id = opinion_id).all()
-
-    return render_template('main/show_opinion.html', opinion=opinion, okm_list = okm_list)
+    keywords = [ i.keyword.content for i in okm_list]
+    return render_template('main/show_opinion.html', opinion=opinion, keywords = keywords)
 
 @main_bp.route('/opinions/<int:opinion_id>/edit', methods=['POST','GET'])
 def edit_opinion(opinion_id):

@@ -1,21 +1,25 @@
-{% for i in opinions %}
+{% for opinion in opinions %}
         <div>
         
-            <h4><a href="{{url_for('.show_opinion', opinion_id = i.id)}}">{{i.title|truncate}}</a></h4>
+            <h4><a href="{{url_for('.show_opinion', opinion_id = opinion.id)}}">{{opinion.title|truncate}}</a></h4>
             <div>
-                {{moment(i.update_time).format('lll')}}
+                {% if opinion.update_time %}
+                    {{moment(opinion.update_time).format('lll')}}
+                {% else %}
+                    {{moment(opinion.create_time).format('lll')}}
+                {% endif %}
             </div>
             <div>
                 Keyword:
                 <small>
-                {% for j in i.okm %}
+                {% for j in opinion.okm %}
                     {{j.keyword.content}}
                 {% endfor %}
                 </small>
             </div>
 
             <div>
-                {{i.content|striptags|truncate}}
+                {{opinion.content|striptags|truncate}}
             </div>
         
         <hr>
