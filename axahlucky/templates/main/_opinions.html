@@ -1,27 +1,21 @@
 {% for opinion in opinions %}
-        <div>
-        
-            <h4><a href="{{url_for('.show_opinion', opinion_id = opinion.id)}}">{{opinion.title|truncate}}</a></h4>
-            <div>
+        <!-- Blog Post -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title"><a href="{{url_for('.show_opinion', opinion_id = opinion.id)}}">{{opinion.title|truncate}}</a></h2>
                 {% if opinion.update_time %}
                     {{moment(opinion.update_time).format('lll')}}
                 {% else %}
                     {{moment(opinion.create_time).format('lll')}}
                 {% endif %}
+                <p class="card-text">{{opinion.content|striptags|truncate}}</p>
             </div>
-            <div>
+
+            <div class="card-footer">
                 Keyword:
-                <small>
                 {% for j in opinion.okm %}
                     {{j.keyword.content}}
                 {% endfor %}
-                </small>
             </div>
-
-            <div>
-                {{opinion.content|striptags|truncate}}
-            </div>
-        
-        <hr>
-        </div>
+    </div>
 {% endfor %}

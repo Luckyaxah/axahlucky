@@ -2,30 +2,36 @@
 
 {% extends "base.html" %}
 
-{% block content%}
-    <div class="row">
-        <h3 class="col-md-10">Keywords</h3>
+{% block content %}
+    <h3>Keywords</h3>
 
-    </div>
-
-    <div class="row">
-        <div class="col-md-10">
-            <div class="row">
-                {% for i in keywords %}
-                <div class="col-md-2">
-                    <a href="{{url_for('.show_keyword',keyword_id=i.id)}}">{{i.content}}</a>, {{i.okm|length}}
-                </div>
-                {% endfor %}
+        <div class="row">
+            {% for i in keywords %}
+            <div class="col-md-2">
+                <a href="{{url_for('.show_keyword',keyword_id=i.id)}}">{{i.content}}</a>, {{i.okm|length}}
             </div>
-        </div> 
-        <div class="col-md-2">
-            <a class="btn" type="button" href="{{url_for('.new_keyword')}}" >New Keyword</a>
+            {% endfor %}
         </div>
-    </div>
 
-    
-{% endblock %}
+{% endblock content %}
 
-{% block pagination%}
+
+{% block pagination %}
     {{render_pagination(pagination)}}
+
 {% endblock pagination %}
+
+
+
+{% block _side %}
+
+{% block operator %}
+<div>
+    <a class="btn" type="button" href="{{url_for('.new_keyword')}}" >New Keyword</a>
+</div>
+{% endblock operator %}
+
+{% endblock _side %}
+
+
+

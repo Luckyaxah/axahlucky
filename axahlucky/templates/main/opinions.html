@@ -6,17 +6,27 @@
 {% block content%}
     <h3>Opinions</h3>
     <br>
-    <div class="row">
-        <div class="col-md-10">
-            {% include "main/_opinions.html" %}
-        </div>
-        <div class="col-md-2">
-            <a class="btn" type="button" href="{{url_for('.new_opinion')}}">New Opinion</a>
-        </div>
-    </div>
-    
-   
+    {% include "main/_opinions.html" %}
 {% endblock %}
+{% block operator%}
+<div>
+    <a class="btn" type="button" href="{{url_for('.new_opinion')}}">New Opinion</a>
+</div>
+{% endblock operator%}
+
+{% block search %}
+<div class="card my-4">
+    <h5 class="card-header">Search</h5>
+    <div class="card-body">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-append">
+          <button class="btn btn-secondary" type="button">Go!</button>
+        </span>
+      </div>
+    </div>
+  </div>
+{% endblock search %}
 
 {% block pagination%}
     {{render_pagination(pagination)}}

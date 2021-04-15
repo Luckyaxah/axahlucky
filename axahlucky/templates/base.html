@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Hello{% endblock title %}</title>
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css' )}}" type="text/css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/perfect_blue.min.css' )}}"
-              type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect_blue.min.css' )}}" type="text/css">
+
   {% endblock head %}
 </head>
 <body>
@@ -20,21 +20,53 @@
 {% endblock navbar %}
 
 <div class="container">
-  {% block content %}
-  <h1>Hello, Hi</h1>
-  {% endblock content %}
-    
-  {% block pagination%}
-  {% endblock pagination %}
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class='col-md-8'>
+      <!-- Page Content -->
+      {% block content %}
+      <h1>Hello, Hi</h1>
+      {% endblock content %}
+
+      <!-- Pagination -->
+      <div class="pagination justify-content-center mb-4">
+        {% block pagination %}
+        {% endblock pagination %}
+      </div>
+    </div>
+    <!-- Sidebar Widgets Column -->
+    {% block _side %}
+    <div class="col-md-4">
+      <!-- Search Widget -->
+      {% block search %}
+      {% endblock search %}
+
+      <!-- Operator -->
+      {% block operator %}
+      {% endblock operator%}
+
+      <!-- Side Widget -->
+      {% block side %}
+      {% endblock side %}
+    </div>
+    {% endblock _side %}
+  </div>
+  
+  
 </div>
 
-<div class="container">
-  {% block footer%}
-  {% endblock footer %}
-</div>
+  <!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    {% block footer%}
+    {% endblock footer %}
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+  </div>
+</footer>
 
 
 
+  <!-- Bootstrap core JavaScript -->
 
 {% block scripts %}
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
