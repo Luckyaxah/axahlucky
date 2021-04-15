@@ -3,7 +3,11 @@
 {% extends "base.html" %}
 
 {% block content%}
-    <h3>Keywords</h3>
+    <div class="row">
+        <h3 class="col-md-10">Keywords</h3>
+
+    </div>
+
     <div class="row">
         <div class="col-md-10">
             <div class="row">
@@ -15,7 +19,7 @@
             </div>
         </div> 
         <div class="col-md-2">
-            <a href="{{url_for('.new_keyword')}}">New Keyword</a>
+            <a class="btn" type="button" href="{{url_for('.new_keyword')}}" >New Keyword</a>
         </div>
     </div>
 
