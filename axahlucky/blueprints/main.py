@@ -133,6 +133,19 @@ def delete_keyword(keyword_id):
     return redirect(url_for('.keywords'))
 
 
+@main_bp.route('/search_opinion', methods=['GET'])
+def search_opinion():
+    # q = request.args.get('q','')
+    # if not q:
+    #     return redirect('/opinions')
+    
+    # page = request.args.get('page', 1, type=1)
+    # per_page = current_app.config['AXAHLUCKY_KEYWORD_PER_PAGE']
+    # pagination = Opinion.query.filter_by(content=q).paginate(page, per_page)
+    # results = pagination.items
+
+    # return render_template('main/search.html', q=q, opinions=results, pagination=pagination)
+    return render_template('main/search.html')
 
 @main_bp.route('/info')
 def info():

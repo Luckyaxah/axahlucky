@@ -18,12 +18,16 @@ else:
     prefix = 'sqlite:////'
 
 class BaseConfig:
+    SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
+
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     AXAHLUCKY_OPINION_PER_PAGE = 10
     AXAHLUCKY_KEYWORD_PER_PAGE = 20
-    SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
+
+    BOOTSTRAP_SERVE_LOCAL = True
+
 
 
 
