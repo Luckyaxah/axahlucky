@@ -4,13 +4,25 @@
 {% block content %}
 <h1>Search Results</h1>
 
-To be done.
+{% include "main/_opinions.html" %}
 {% endblock content%}
 
 
-{#
-    {% include "main/_opinions.html" %}
-    {% block pagination%}
-        {{render_pagination(pagination)}}
-    {% endblock pagination %}
-#}
+{% block search %}
+<div class="card my-4">
+  <h5 class="card-header">Search</h5>
+  <div class="card-body">
+    <div class="input-group">
+      <form class="form-inline my-2 my-lg-0" action="{{url_for('main.search_opinion')}}">
+        <input type="text" name="q" class="form-control mr-sm-1" placeholder="Search for..." required>
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="opinion_search">Go
+          </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock search %}
+
+{% block pagination%}
+    {{render_pagination(pagination)}}
+{% endblock pagination %}

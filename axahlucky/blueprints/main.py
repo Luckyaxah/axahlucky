@@ -16,7 +16,7 @@ def opinions():
 
     query = Opinion.query.order_by(Opinion.update_time.desc())
     pagination = query.paginate(page, per_page)
-    
+
     opinions = pagination.items
 
     return render_template('main/opinions.html', opinions=opinions, pagination=pagination)
@@ -137,17 +137,17 @@ def delete_keyword(keyword_id):
 
 @main_bp.route('/search_opinion', methods=['GET'])
 def search_opinion():
-    # q = request.args.get('q','')
-    # if not q:
-    #     return redirect('/opinions')
+    q = request.args.get('q','')
+    if not q:
+        return redirect('/opinions')
     
-    # page = request.args.get('page', 1, type=1)
-    # per_page = current_app.config['AXAHLUCKY_KEYWORD_PER_PAGE']
-    # pagination = Opinion.query.filter_by(content=q).paginate(page, per_page)
-    # results = pagination.items
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['AXAHLUCKY_KEYWORD_PER_PAGE']
+    query =  Opinion.query.filter(Opinion.content.like('%'+'%s'%q+'%'))
+    pagination =query.paginate(page, per_page)
+    results = pagination.items
 
-    # return render_template('main/search.html', q=q, opinions=results, pagination=pagination)
-    return render_template('main/search.html')
+    return render_template('main/search.html', q=q, opinions=results, pagination=pagination)
 
 @main_bp.route('/info')
 def info():
