@@ -13,8 +13,10 @@ def index():
 def opinions():
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['AXAHLUCKY_OPINION_PER_PAGE']
+
+    query = Opinion.query.order_by(Opinion.update_time.desc())
+    pagination = query.paginate(page, per_page)
     
-    pagination = Opinion.query.order_by(Opinion.update_time.desc()).paginate(page, per_page)
     opinions = pagination.items
 
     return render_template('main/opinions.html', opinions=opinions, pagination=pagination)

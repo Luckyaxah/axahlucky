@@ -28,7 +28,6 @@ class Keyword(db.Model):
     content = db.Column(db.String(50), unique=True)
     create_time = db.Column(db.DateTime,  default=datetime.utcnow)
 
-
     okm = db.relationship('OpinionKeywordMapping', back_populates='keyword', cascade='all')
 
 
