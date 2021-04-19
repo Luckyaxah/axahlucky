@@ -5,10 +5,9 @@ from flask import Flask
 from flask_sqlalchemy import get_debug_queries
 
 from axahlucky.settings import config, basedir
-from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment
+from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment, csrf
 from axahlucky.blueprints.main import main_bp
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
-
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -39,6 +38,7 @@ def register_extensions(app):
     ckeditor.init_app(app)
     migrate.init_app(app, db)
     moment.init_app(app)
+    csrf.init_app(app)
 
 def register_blueprints(app):
     app.register_blueprint(main_bp)
