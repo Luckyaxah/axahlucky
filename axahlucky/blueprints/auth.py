@@ -74,7 +74,7 @@ def login():
         if user:
             if user.validate_password(password):
                 login_user(user, remember)
-                flash('Welcom back.', 'info')
+                flash('Welcome back.', 'info')
                 return redirect_back()
             flash('Invalid username or password.', 'warning')
         else:
