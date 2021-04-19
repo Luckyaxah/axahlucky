@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_ckeditor import CKEditor
 from flask_moment import Moment
 from flask_wtf import CSRFProtect
+from flask_mail import Mail
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
@@ -14,4 +15,4 @@ migrate = Migrate()
 ckeditor = CKEditor()
 moment = Moment()
 csrf = CSRFProtect()
-
+mail = Mail()

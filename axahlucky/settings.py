@@ -30,6 +30,13 @@ class BaseConfig:
 
     BOOTSTRAP_SERVE_LOCAL = True
 
+    MAIL_USE_SSL = True
+    MAIL_PORT = 465
+
+    AXAHLUCKY_MAIL_SUBJECT_PREFIX = '[AxahLucky]'
+    ADMIN_EMAIL_ADDRESS = os.getenv('ADMIN_EMAIL_ADDRESS')
+
+
 
 
 
@@ -37,6 +44,10 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = \
         os.getenv('DATABASE_URL_DEV', prefix + os.path.join(basedir, 'data-dev.db'))
     REDIS_URL = "redis://localhost"
+    MAIL_SERVER = os.getenv('MAIL_SERVER_DEV')
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME_DEV')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD_DEV')
+    MAIL_DEFAULT_SENDER = ('AXAHLUCKY', os.getenv('MAIL_USERNAME_DEV'))
 
 
 class TestingConfig(BaseConfig):
@@ -44,10 +55,20 @@ class TestingConfig(BaseConfig):
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'  # in-memory database
 
+    MAIL_SERVER = os.getenv('MAIL_SERVER_TEST')
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME_TEST')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD_TEST')
+    MAIL_DEFAULT_SENDER = ('AXAHLUCKY', os.getenv('MAIL_USERNAME_TEST'))
+
 
 class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',
                                         prefix + os.path.join(basedir, 'data.db'))
+    
+    MAIL_SERVER = os.getenv('MAIL_SERVER')
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = ('AXAHLUCKY', os.getenv('MAIL_USERNAME'))
 
 
 config = {
