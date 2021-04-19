@@ -1,7 +1,10 @@
 from flask import Blueprint, render_template, request, current_app, redirect, url_for
+from flask_login import login_required
+
 from axahlucky.models import Keyword, Opinion, OpinionKeywordMapping
 from axahlucky.forms import EditOpinionForm, EditKeywordForm
 from axahlucky.extensions import db
+
 
 main_bp = Blueprint('main', __name__)
 
@@ -54,6 +57,7 @@ def show_opinion(opinion_id):
     return render_template('main/show_opinion.html', opinion=opinion, keywords = keywords)
 
 @main_bp.route('/opinions/<int:opinion_id>/edit', methods=['POST','GET'])
+@login_required
 def edit_opinion(opinion_id):
     form = EditOpinionForm()
     opinion = Opinion.query.get_or_404(opinion_id)
@@ -84,6 +88,7 @@ def edit_opinion(opinion_id):
     return render_template('main/edit_opinion.html', form=form)
 
 @main_bp.route('/opinions/new', methods=['POST','GET'])
+@login_required
 def new_opinion():
     form = EditOpinionForm()
     form.keyword.choices=[(keyword.id, keyword.content) for keyword in Keyword.query]
@@ -105,6 +110,7 @@ def new_opinion():
     return render_template('main/new_opinion.html', form=form)
 
 @main_bp.route('/opinions/<int:opinion_id>/delete', methods=['POST'])
+@login_required
 def delete_opinion(opinion_id):
     opinion = Opinion.query.get(opinion_id)
     if opinion:
@@ -113,6 +119,7 @@ def delete_opinion(opinion_id):
     return redirect(url_for('.opinions'))
 
 @main_bp.route('/keywords/new', methods=['POST','GET'])
+@login_required
 def new_keyword():
     form = EditKeywordForm()
 
@@ -127,6 +134,7 @@ def new_keyword():
     return render_template('main/new_keyword.html', form=form)
 
 @main_bp.route('/keywords/<int:keyword_id>/delete', methods=['POST'])
+@login_required
 def delete_keyword(keyword_id):
     keyword = Keyword.query.get(keyword_id)
     if keyword:

@@ -26,7 +26,7 @@ def load_user(user_id):
     user = User.query.get(user_id)
     return user
 
-
+login_manager.login_view = 'auth.login'
 class Guest(AnonymousUserMixin):
 
     def can(self, permission_name):
