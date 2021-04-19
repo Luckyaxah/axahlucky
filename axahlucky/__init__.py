@@ -1,7 +1,7 @@
 import os
 import click
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import get_debug_queries
 
 from axahlucky.settings import config, basedir
@@ -65,7 +65,13 @@ def register_commands(app):
         click.echo('Done.')
 
 def register_errorhandlers(app):
-    pass
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('errors/500.html'), 500
 
 def register_shell_context(app):
     @app.shell_context_processor
