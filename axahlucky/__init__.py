@@ -9,7 +9,7 @@ from flask_sqlalchemy import get_debug_queries
 from flask_wtf.csrf import CSRFError
 
 from axahlucky.settings import config, basedir
-from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment, csrf, mail
+from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment, csrf, mail, login_manager
 from axahlucky.blueprints.main import main_bp
 from axahlucky.blueprints.auth import auth_bp
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
@@ -36,16 +36,18 @@ def create_app(config_name=None):
 def register_extensions(app):
     db.init_app(app)
     bootstrap.init_app(app)
+    login_manager.init_app(app)
     debug.init_app(app)
     ckeditor.init_app(app)
     migrate.init_app(app, db)
     moment.init_app(app)
     csrf.init_app(app)
     mail.init_app(app)
+    
 
 def register_blueprints(app):
     app.register_blueprint(main_bp)
-    app.register_blueprint(auth_bp, prefix='/auth')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
 
 
 def register_commands(app):

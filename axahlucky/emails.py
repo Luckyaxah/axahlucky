@@ -25,7 +25,7 @@ def send_hello_mail(user=None):
     send_mail(subject="Hello", to=to, template='emails/hello')
 
 
-def send_confirm_mail(user, token, to=None):
+def send_confirm_email(user, token, to=None):
     send_mail(subject="Email Confirm", to=to or user.email, template='emails/confirm', user=user, token=token)
 
 def send_reset_password_email(user, token):

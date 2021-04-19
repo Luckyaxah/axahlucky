@@ -7,12 +7,33 @@ from flask_ckeditor import CKEditor
 from flask_moment import Moment
 from flask_wtf import CSRFProtect
 from flask_mail import Mail
+from flask_login import LoginManager, AnonymousUserMixin
+
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
+login_manager = LoginManager()
 debug = DebugToolbarExtension()
 migrate = Migrate()
 ckeditor = CKEditor()
 moment = Moment()
 csrf = CSRFProtect()
 mail = Mail()
+
+@login_manager.user_loader
+def load_user(user_id):
+    from axahlucky.models import User
+    user = User.query.get(user_id)
+    return user
+
+
+class Guest(AnonymousUserMixin):
+
+    def can(self, permission_name):
+        return False
+
+    @property
+    def is_admin(self):
+        return False
+
+login_manager.anonymous_user = Guest

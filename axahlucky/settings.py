@@ -17,6 +17,11 @@ if WIN:
 else:
     prefix = 'sqlite:////'
 
+class Operations:
+    CONFIRM = 'confirm'
+    RESET_PASSWORD = 'reset-password'
+    CHANGE_EMAIL = 'change-email'
+
 class BaseConfig:
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
 
