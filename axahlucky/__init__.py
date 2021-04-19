@@ -1,16 +1,17 @@
 import os
 import click
 
+import logging
+from logging.handlers import RotatingFileHandler
+
 from flask import Flask, render_template
 from flask_sqlalchemy import get_debug_queries
+from flask_wtf.csrf import CSRFError
 
 from axahlucky.settings import config, basedir
 from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment, csrf
 from axahlucky.blueprints.main import main_bp
 from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
-
-import logging
-from logging.handlers import RotatingFileHandler
 
 def create_app(config_name=None):
     if config_name is None:
@@ -65,6 +66,10 @@ def register_commands(app):
         click.echo('Done.')
 
 def register_errorhandlers(app):
+    @app.errorhandler(400)
+    def bad_request(e):
+        return render_template('errors/400.html'), 400
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('errors/404.html'), 404
@@ -72,6 +77,10 @@ def register_errorhandlers(app):
     @app.errorhandler(500)
     def internal_server_error(e):
         return render_template('errors/500.html'), 500
+
+    @app.errorhandler(CSRFError)
+    def handle_csrf_error(e):
+        return render_template('errors/400.html', description=e.description), 500
 
 def register_shell_context(app):
     @app.shell_context_processor
