@@ -1,1 +1,5 @@
 {% extends "base.html"%}
+
+{% block content %}
+<h1>Hi, {{current_user.name|default("there")}}</h1>
+{% endblock content%}

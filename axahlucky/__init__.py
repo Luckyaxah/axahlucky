@@ -12,7 +12,7 @@ from axahlucky.settings import config, basedir
 from axahlucky.extensions import db, bootstrap, debug, migrate, ckeditor, moment, csrf, mail, login_manager
 from axahlucky.blueprints.main import main_bp
 from axahlucky.blueprints.auth import auth_bp
-from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
+from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping, Role, User, Permission
 
 def create_app(config_name=None):
     if config_name is None:
@@ -55,13 +55,23 @@ def register_commands(app):
     @app.cli.command()
     @click.option('--keyword', default=10)
     @click.option('--opinion', default=50)
-    def forge(keyword, opinion):
+    @click.option('--user', default=5)
+    def forge(keyword, opinion, user):
         """Generate fake data."""
-        from axahlucky.fakes import fake_keyword, fake_opinion
+        from axahlucky.fakes import fake_keyword, fake_opinion, fake_admin, fake_user
 
         db.drop_all()
         db.create_all()
 
+        click.echo('Initializing the roles and permissions...')
+        Role.init_role()
+        
+        click.echo('Generating the administrator...')
+        fake_admin()
+
+        click.echo('Generating %s users' % user)
+        fake_user(user)
+        
         click.echo('Generating the keywords...')
         fake_keyword(keyword)
 
@@ -70,10 +80,42 @@ def register_commands(app):
 
         click.echo('Done.')
 
+    @app.cli.command()
+    def init():
+        """Initialize Axahlucky."""
+        click.echo('Initializing the database...')
+        db.create_all()
+
+        click.echo('Initializing the roles and permisions...')
+        Role.init_role()
+        click.echo('Done.')
+
+    @app.cli.command()
+    @click.option('--drop', is_flag=True, help='Create after drop.')
+    def initdb(drop):
+        """Initialize Axahlucky."""
+        if drop:
+            click.confirm('This operation will delete the database, do you want to continue?', abort=True)
+            db.drop_all()
+            click.echo('Drop tables.')
+        click.echo('Initializing the database...')
+        db.create_all()
+        click.echo('Done.')
+
+    @app.cli.command()
+    def init_role_permission():
+        click.echo('Initializing the roles and permisions...')
+        Role.init_role()
+        click.echo('Done.')
+
 def register_errorhandlers(app):
     @app.errorhandler(400)
     def bad_request(e):
         return render_template('errors/400.html'), 400
+
+    @app.errorhandler(403)
+    def bad_request(e):
+        return render_template('errors/403.html'), 403
 
     @app.errorhandler(404)
     def page_not_found(e):
@@ -90,7 +132,15 @@ def register_errorhandlers(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db, Opinion=Opinion, Keyword=Keyword, OpinionKeywordMapping=OpinionKeywordMapping)
+        return dict(
+            db=db,
+            Opinion=Opinion,
+            Keyword=Keyword,
+            OpinionKeywordMapping=OpinionKeywordMapping,
+            User = User,
+            Role = Role,
+            Permission = Permission
+            )
 
 def register_template_context(app):
     pass

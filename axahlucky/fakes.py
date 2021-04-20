@@ -4,9 +4,38 @@ from faker import Faker
 from sqlalchemy.exc import IntegrityError
 
 from axahlucky.extensions import db
-from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping
+from axahlucky.models import Opinion, Keyword, OpinionKeywordMapping, User, Role
 
 fake = Faker()
+
+def fake_admin():
+    admin = User(
+        name = 'Admin',
+        username = 'admin',
+        email = 'admin@axahlucky.com',
+        confirmed = True
+    )
+    admin.set_password('123456')
+    role = Role.query.filter_by(name='Administrator').first()
+    admin.role = role
+    db.session.add(admin)
+    db.session.commit()
+
+def fake_user(count=5):
+    for i in range(count):
+        user = User(
+            name = fake.name(),
+            confirmed = True,
+            username = fake.user_name(),
+            member_since = fake.date_this_decade(),
+            email = fake.email()
+        )
+        user.set_password('123456')
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
 
 
 def fake_keyword(count=5):

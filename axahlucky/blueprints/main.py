@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, current_app, redirect, url_for
+from flask import Blueprint, render_template, request, current_app, redirect, url_for, abort
 from flask_login import login_required
 
 from axahlucky.models import Keyword, Opinion, OpinionKeywordMapping
 from axahlucky.forms import EditOpinionForm, EditKeywordForm
 from axahlucky.extensions import db
+from axahlucky.decorators import delete_required
 
 
 main_bp = Blueprint('main', __name__)
@@ -111,6 +112,7 @@ def new_opinion():
 
 @main_bp.route('/opinions/<int:opinion_id>/delete', methods=['POST'])
 @login_required
+@delete_required
 def delete_opinion(opinion_id):
     opinion = Opinion.query.get(opinion_id)
     if opinion:
@@ -135,6 +137,7 @@ def new_keyword():
 
 @main_bp.route('/keywords/<int:keyword_id>/delete', methods=['POST'])
 @login_required
+@delete_required
 def delete_keyword(keyword_id):
     keyword = Keyword.query.get(keyword_id)
     if keyword:
